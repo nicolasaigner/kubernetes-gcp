@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-nginx
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: hello-nginx
@@ -16,9 +16,20 @@ spec:
     spec:
       containers:
       - name: nginx
+
         image: nginx:1.17-alpine
+
         ports:
           - containerPort: 80
+
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "200m"
+          limits:
+            cpu: "250m"
+            memory: "200Mi"
+
         volumeMounts:
         - mountPath: /etc/nginx/conf.d
           name: nginx-conf
